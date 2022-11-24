@@ -5,7 +5,7 @@ DOPO AVER CREATO IL DATABASE COPIARE TUTTO E INCOLLARE
 CREATE TABLE Utente(
 	Nome varchar(71),
 	Cognome varchar(71),
-	Login varchar(71) Not Null,
+	Username varchar(71) Not Null,
 	Password varchar(71) Not Null,
 	
 	Constraint Utentepk 
