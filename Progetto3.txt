@@ -1,0 +1,17 @@
+Progetto 3: Gestione Vendita bevande
+
+· n utenti (client) devono potersi registrare, acquistare e pagare (simulazione) le bevande disponibili in un bar (cocktail e frullati)
+
+· le informazioni delle bevande sono conservate su un database SQL o semplice file
+
+· le informazioni degli utenti devono invece essere registrate in un semplice database SQL o su file dal server
+
+· I clienti del bar possono scegliere le bevande per categoria (cocktail o frullato) o possono essere loro consigliate, per esempio in base allo storico delle vendite
+
+· Gli studenti possono scegliere secondo quali criteri consigliare le bevande agli utenti
+
+· Applicazione per cellulare o tablet
+
+· [Opzionale] Per una complessità maggiore, e quindi punti extra, si può:
+
+· Usare un database Mysql or PostgreSQL per la registrazione/login degli utenti
