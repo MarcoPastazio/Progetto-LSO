@@ -1,0 +1,383 @@
+CREATE DATABASE CAALMA;
+
+DOPO AVER CREATO IL DATABASE COPIARE TUTTO E INCOLLARE
+
+CREATE TABLE Utente(
+	Nome varchar(71),
+	Cognome varchar(71),
+	Username varchar(71) Not Null,
+	Password varchar(71) Not Null,
+	
+	Constraint Utentepk 
+	PRIMARY KEY (Username)
+
+);
+
+CREATE TABLE Ingrediente(
+	Nome varchar(71),
+	Quantita Integer,
+	
+	Constraint Ingredientepk 
+	PRIMARY KEY (Nome)
+);
+
+CREATE TABLE Cocktail(
+	Nome varchar(71),
+	Prezzo float,
+	Disponibilita Boolean,
+	
+	Constraint Cocktailpk 
+	PRIMARY KEY (Nome)
+);
+
+CREATE TABLE Frullato(
+	Nome varchar(71),
+	Prezzo float,
+	Disponibilita Boolean,
+	
+	Constraint Frullatopk 
+	PRIMARY KEY (Nome)
+);
+
+CREATE TABLE ComponentiC(
+	Ingrediente varchar(71),
+	Cocktail varchar(71),
+	
+	constraint ComponentiCfk1
+		foreign key (Ingrediente) references Ingrediente(Nome)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+	
+	constraint ComponentiCfk2
+		foreign key (Cocktail) references Cocktail(Nome)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+	
+);
+
+CREATE TABLE ComponentiF(
+	Ingrediente varchar(71),
+	Frullato varchar(71),
+	
+	constraint ComponentiCfk1
+		foreign key (Ingrediente) references Ingrediente(Nome)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+	
+	constraint ComponentiCfk2
+		foreign key (Frullato) references Frullato(Nome)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+	
+);
+
+CREATE TABLE Scontrino(
+	Prezzo float,
+	Id Integer NOT NULL,
+	Username varchar(71),
+	
+	Constraint Scontrinopk 
+	PRIMARY KEY (id),
+	
+	constraint Scontrinofk1
+		foreign key (Username) references Utente(Username)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+);
+
+CREATE TABLE ContenutoC(
+	Quantita Integer,
+	Cocktail varchar(71),
+	Scontrino Integer,
+	
+	constraint ContenutoCfk1
+		foreign key (Cocktail) references Cocktail(Nome)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+	
+	constraint ContenutoCfk2
+		foreign key (Scontrino) references Scontrino(Id)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+	
+);
+
+CREATE TABLE ContenutoF(
+	Quantita Integer,
+	Frullato varchar(71),
+	Scontrino Integer,
+	
+	constraint ContenutoFfk1
+		foreign key (Frullato) references Frullato(Nome)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+	
+	constraint ContenutoFfk2
+		foreign key (Scontrino) references Scontrino(Id)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+);
+
+insert into utente
+values('Marco', 'Pastore', 'mpastore@gmail.com', 'pastore');
+
+insert into utente
+values('Carmine', 'Mascia', 'cmascia@gmail.com', 'forzanapoli');
+
+insert into utente
+values('Alessandro', 'Mauriello', 'amauriello@gmail.com', 'dio');
+
+insert into utente
+values('Alessandra', 'Rossi', 'arossi@gmail.com', 'alhandra');
+
+insert into utente
+values('Sergio', 'Di Martino', 'SDM@gmail.com', 'INGSW');
+
+insert into ingrediente
+values ('Gin', '10');
+
+insert into ingrediente
+values ('Succo arancia', '2');
+
+insert into ingrediente
+values ('Tequila', '1');
+
+insert into ingrediente
+values ('Rum Bianco Bacardi', '9');
+
+insert into ingrediente
+values ('Crema di Cocco', '3');
+
+insert into ingrediente
+values ('Pompelmo', '6');
+
+insert into ingrediente
+values ('Succo ananas', '4');
+
+insert into ingrediente
+values ('Chartreuse Gialla', '7');
+
+insert into ingrediente
+values ('Amaretto di Saronno', '9');
+
+insert into ingrediente
+values ('Succo di limone', '5');
+
+insert into ingrediente
+values ('Cointreau', '7');
+
+insert into ingrediente
+values ('Curacao Blu', '4');
+
+insert into ingrediente
+values ('Aperol', '6');
+
+insert into ingrediente
+values ('Prosecco', '9');
+
+insert into ingrediente
+values ('Acqua minerale', '8');
+
+insert into ingrediente
+values ('champagne', '20');
+
+insert into ingrediente
+values ('banane', '50');
+
+insert into ingrediente
+values ('acqua naturale', '100');
+
+insert into ingrediente
+values ('mela', '30');
+
+insert into ingrediente
+values ('carote', '15');
+
+insert into ingrediente
+values ('sedano', '10');
+
+insert into ingrediente
+values ('mango', '9');
+
+insert into ingrediente
+values ('pesca', '7');
+
+insert into ingrediente
+values ('latte', '60');
+
+insert into ingrediente
+values ('fragola', '10');
+
+insert into ingrediente
+values ('kiwi', '20');
+
+insert into cocktail
+values('Mimosa', '8', 'true');
+
+insert into cocktail
+values('Abbey', '12', 'true');
+
+insert into cocktail
+values('Acapulco gold colata', '15', 'true');
+
+insert into cocktail
+values('Spritz', '10', 'true');
+
+insert into cocktail
+values('Alaska', '9', 'true');
+
+insert into cocktail
+values('Amaretto Sour', '11', 'true');
+
+insert into cocktail
+values('Angelo azzurro', '17', 'true');
+
+insert into frullato
+values('Frullato di banane', '5', 'true');
+
+insert into frullato
+values('Frullato di carote e sedano', '6', 'true');
+
+insert into frullato
+values('Frullato di mango e pesca', '6', 'true');
+
+insert into frullato
+values('Frullato di fragola e banana', '7', 'true');
+
+insert into frullato
+values('Frullato di mela e kiwi', '7', 'true');
+
+insert into componentic
+values('Succo arancia', 'Mimosa');
+
+insert into componentic
+values('champagne', 'Mimosa');
+
+insert into componentic
+values('Gin', 'Abbey');
+
+insert into componentic
+values('Succo arancia', 'Abbey');
+
+insert into componentic
+values('Tequila', 'Acapulco gold colata');
+
+insert into componentic
+values('Rum Bianco Bacardi', 'Acapulco gold colata');
+
+insert into componentic
+values('Crema di Cocco', 'Acapulco gold colata');
+
+insert into componentic
+values('Pompelmo', 'Acapulco gold colata');
+
+insert into componentic
+values('Succo ananas', 'Acapulco gold colata');
+
+insert into componentic
+values('Aperol', 'Spritz');
+
+insert into componentic
+values('Prosecco', 'Spritz');
+
+insert into componentic
+values('Acqua minerale', 'Spritz');
+
+insert into componentic
+values('Gin', 'Alaska');
+
+insert into componentic
+values('Chartreuse Gialla', 'Alaska');
+
+insert into componentic
+values('Amaretto di Saronno', 'Amaretto Sour');
+
+insert into componentic
+values('Succo di limone', 'Amaretto Sour');
+
+insert into componentic
+values('Gin', 'Angelo azzurro');
+
+insert into componentic
+values('Cointreau', 'Angelo azzurro');
+
+insert into componentic
+values('Curacao Blu', 'Angelo azzurro');
+
+insert into componentif
+values('banane', 'Frullato di banane');
+
+insert into componentif
+values('acqua naturale', 'Frullato di banane');
+
+insert into componentif
+values('Succo di limone', 'Frullato di banane');
+
+insert into componentif
+values('mela', 'Frullato di carote e sedano');
+
+insert into componentif
+values('carote', 'Frullato di carote e sedano');
+
+insert into componentif
+values('sedano', 'Frullato di carote e sedano');
+
+insert into componentif
+values('mango', 'Frullato di mango e pesca');
+
+insert into componentif
+values('pesca', 'Frullato di mango e pesca');
+
+insert into componentif
+values('latte', 'Frullato di mango e pesca');
+
+insert into componentif
+values('fragola', 'Frullato di fragola e banana');
+
+insert into componentif
+values('banane', 'Frullato di fragola e banana');
+
+insert into componentif
+values('latte', 'Frullato di fragola e banana');
+
+insert into componentif
+values('latte', 'Frullato di mela e kiwi');
+
+insert into componentif
+values('mela', 'Frullato di mela e kiwi');
+
+insert into componentif
+values('kiwi', 'Frullato di mela e kiwi');
+
+insert into scontrino
+values('12', '1', 'mpastore@gmail.com');
+
+insert into scontrino
+values('16', '2', 'cmascia@gmail.com');
+
+insert into scontrino
+values('23', '3', 'amauriello@gmail.com');
+
+insert into scontrino
+values('23', '4', 'SDM@gmail.com');
+
+insert into ContenutoC
+values('1', 'Abbey', '1');
+
+insert into ContenutoC
+values('2', 'Mimosa', '2');
+
+insert into ContenutoC
+values('1', 'Angelo azzurro', '3');
+
+insert into ContenutoF
+values('1', 'Frullato di carote e sedano', '3');
+
+insert into ContenutoC
+values('1', 'Amaretto Sour', '4');
+
+insert into ContenutoF
+values('1', 'Frullato di banane', '4');
+
+insert into ContenutoF
+values('1', 'Frullato di mela e kiwi', '4');
