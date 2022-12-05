@@ -1,0 +1,82 @@
+Registrazione Utente:
+insert into utente
+values('nomenewutente', 'cognomenewutente', 'loginnewutente', 'passwordnewutente');
+
+Accesso Utente:
+select *
+from utente
+where login = 'loginutente' AND password = 'passwordutente'
+
+Visualizza Cocktail:
+select *
+from cocktail
+
+Visualizza Frullati:
+select *
+from Frullato
+
+Cerca il max id perchè per ogni scontrino l'id dovrà aumentare di 1:
+select MAX(id)
+from scontrino
+
+Prende il prezzo del cocktail per poi metterlo nello scontrino:
+select prezzo
+from cocktail
+where disponibilita = 'true' AND nome = 'nomecocktailscelto'
+
+Prende il prezzo del frullato per poi metterlo nello scontrino:
+select prezzo
+from frullato
+where disponibilita = 'true' AND nome = 'nomefrullatoscelto'
+
+Per il pagamento del carrello/scontrino:
+select prezzo
+from scontrino
+where login = 'loginutente'
+
+
+//Penso che queste 2 query devono essere fatte tutte e 2 per vedere le due cose
+//perchè se uno ordina solo una delle due categorie, nella query che metto come terza, non escono tuple
+Visualizzazione solo cocktail ordinati:
+select c.cocktail
+from contenutoc as c
+where c.scontrino in(
+	select id
+	from scontrino s
+	where login = 'loginutente')
+
+Visualizzazione solo frullati ordinati:
+select f.frullato
+from contenutof as f
+where f.scontrino in(
+	select id
+	from scontrino s
+	where login = 'loginutente')
+
+//Quella che forse è inutile
+Visualizzazione di frullati e cocktail:
+select c.cocktail, f.frullato
+from contenutoc as c, contenutof f
+where c.scontrino = f.scontrino AND c.scontrino in(
+	select id
+	from scontrino s
+	where login = 'loginutente');
+
+
+//Preferenza cocktail in base alla quantita presa(solo cocktail)
+select distinct c.cocktail
+from componentic as k, contenutoc c
+where k.cocktail = c.cocktail AND c.scontrino in (
+	select id
+	from scontrino
+	where login = 'mpastore@gmail.com') AND quantita = (select MAX(quantita)
+									    from contenutoc)
+
+
+//Inserimento nel carrello/scontrino lato cocktail
+insert into ContenutoC
+values('quanticocktail', 'Cocktaildesiderato', 'idscontrino');
+
+//Inserimento nel carrello/scontrino lato frullato
+insert into ContenutoF
+values('quanticocktail', 'Cocktaildesiderato', 'idscontrino');
