@@ -27,6 +27,28 @@
 
 #include <sqlite3.h>
 
+void my_recv(int connected_fd, char *buffer) {
+    bzero(buffer, BUFFER_SIZE);
+
+    printf("\tReceiving...\n"); fflush(stdout);
+
+    int bytes_recived = read(connected_fd, buffer, BUFFER_SIZE);
+    //buffer[bytes_recived-1] = '\0';
+
+    printf("\tReceived %s\n", buffer); fflush(stdout);
+}
+
+void my_send(int connected_fd, char *buffer) {
+    printf("\tSending %s\n", buffer); fflush(stdout);
+
+    int len = strlen(buffer);
+    //buffer[bytes_recived-1] = '\n'; buffer[bytes_recived] = '\0';
+    //buffer[len] = '\n'; buffer[len+1] = '\0';
+    write(connected_fd, buffer, strlen(buffer));
+
+    printf("\tSended %s\n", buffer); fflush(stdout);
+}
+
 void err_sys(const char* x) { 
     perror(x); 
     exit(1); 
